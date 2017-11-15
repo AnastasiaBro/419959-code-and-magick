@@ -193,7 +193,7 @@
       return 2;
     }
   };
-  getFireballSpeed();
+  console.log(getFireballSpeed());
 
   //скорость мага
   var wizardSpeed = 3;
@@ -205,20 +205,18 @@
   var getWizardHeight = function() {
     return 1.337 * wizardWidth;
   };
-  getWizardHeight();
+  console.log(getWizardHeight());
 
   //маг находится по центру по горизонтали
   var getWizardX = function(width) {
-    return (width/2 - wizardWidth/2);
+    return width/2 - wizardWidth/2;
   };
-  getWizardX(width);
+  console.log(getWizardX(400));
 
   //маг находится на 2/3 от земли
   var getWizardY = function(height) {
-    return (height*1/3 - getWizardHeight/2);
+    return height*(1/3) - getWizardHeight()/2;
   };
-  getWizardY(height);
-  /*console.log(getWizardY(height));*/
 </script>
 <script src="js/game.js"></script>
 
