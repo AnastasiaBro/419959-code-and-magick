@@ -49,18 +49,24 @@ window.renderStatistics = function (ctx, names, times) {
 
   var histogramHeight = 150;
   var step = histogramHeight / (maxTime - 0);
+  var distanceX = 120;
+  var spaceBar = 90;
+  var resultY = 90;
+  var barY = 100;
+  var nameY = 270;
+  var barWidth = 40;
 
   for (var j = 0; j < times.length; j++) {
     ctx.fillStyle = '#000';
-    ctx.fillText(Math.round(times[j]), 120 + 90 * j, 90 + histogramHeight - times[j] * step);
+    ctx.fillText(Math.round(times[j]), distanceX + spaceBar * j, resultY + histogramHeight - times[j] * step);
     if (names[j] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
       ctx.fillStyle = 'rgba(0, 0, 255,' + Math.random() + ')';
     }
-    ctx.fillRect(120 + 90 * j, 100 + histogramHeight - times[j] * step, 40, times[j] * step);
+    ctx.fillRect(distanceX + spaceBar * j, barY + histogramHeight - times[j] * step, barWidth, times[j] * step);
 
     ctx.fillStyle = '#000';
-    ctx.fillText(names[j], 120 + 90 * j, 270);
+    ctx.fillText(names[j], distanceX + spaceBar * j, nameY);
   }
 };
