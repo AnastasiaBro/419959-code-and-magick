@@ -1,5 +1,9 @@
 'use strict';
 
+var getRandomNumber = function () {
+  return Math.random();
+};
+
 window.renderStatistics = function (ctx, names, times) {
   var slip = 10;
 
@@ -64,10 +68,6 @@ window.renderStatistics = function (ctx, names, times) {
   var barY = 100;
   var nameY = 270;
   var barWidth = 40;
-
-  var getRandomNumber = function () {
-    return Math.random();
-  };
 
   for (var j = 0; j < times.length; j++) {
     var printScoreBar = function () {
