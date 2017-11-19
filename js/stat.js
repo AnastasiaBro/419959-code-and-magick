@@ -3,7 +3,7 @@
 window.renderStatistics = function (ctx, names, times) {
   var slip = 10;
 
-  var shadowCloud = function () {
+  var drawShadowCloud = function () {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
     ctx.beginPath();
     ctx.bezierCurveTo(100 + slip, 10 + slip, 150 + slip, -10 + slip, 200 + slip, 20 + slip);
@@ -19,9 +19,9 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.stroke();
     return ctx.fill();
   };
-  shadowCloud();
+  drawShadowCloud();
 
-  var mainCloud = function () {
+  var drawMainCloud = function () {
     ctx.fillStyle = 'white';
     ctx.beginPath();
     ctx.bezierCurveTo(100, 10, 150, -10, 200, 20);
@@ -37,7 +37,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.stroke();
     return ctx.fill();
   };
-  mainCloud();
+  drawMainCloud();
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
@@ -70,13 +70,13 @@ window.renderStatistics = function (ctx, names, times) {
   };
 
   for (var j = 0; j < times.length; j++) {
-    var scoreBar = function () {
+    var printScoreBar = function () {
       ctx.fillStyle = '#000';
       return ctx.fillText(Math.round(times[j]), distanceX + spaceBar * j, resultY + histogramHeight - times[j] * step);
     };
-    scoreBar();
+    printScoreBar();
 
-    var userBar = function () {
+    var printUserBar = function () {
       if (names[j] === 'Вы') {
         ctx.fillStyle = 'rgba(255, 0, 0, 1)';
       } else {
@@ -84,12 +84,12 @@ window.renderStatistics = function (ctx, names, times) {
       }
       return ctx.fillRect(distanceX + spaceBar * j, barY + histogramHeight - times[j] * step, barWidth, times[j] * step);
     };
-    userBar();
+    printUserBar();
 
-    var nameBar = function () {
+    var printNameBar = function () {
       ctx.fillStyle = '#000';
       return ctx.fillText(names[j], distanceX + spaceBar * j, nameY);
     };
-    nameBar();
+    printNameBar();
   }
 };
