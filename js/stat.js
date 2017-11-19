@@ -65,7 +65,7 @@ window.renderStatistics = function (ctx, names, times) {
   var nameY = 270;
   var barWidth = 40;
 
-  var randomOpacityBar = function () {
+  var getRandomNumber = function () {
     return Math.random();
   };
 
@@ -80,7 +80,7 @@ window.renderStatistics = function (ctx, names, times) {
       if (names[j] === 'Вы') {
         ctx.fillStyle = 'rgba(255, 0, 0, 1)';
       } else {
-        ctx.fillStyle = 'rgba(0, 0, 255,' + randomOpacityBar() + ')';
+        ctx.fillStyle = 'rgba(0, 0, 255,' + getRandomNumber() + ')';
       }
       return ctx.fillRect(distanceX + spaceBar * j, barY + histogramHeight - times[j] * step, barWidth, times[j] * step);
     };
