@@ -7,7 +7,12 @@ var getRandomNumber = function () {
 window.renderStatistics = function (ctx, names, times) {
   var slip = 10;
 
-  var drawShadowCloud = function () {
+  (function drawCloud() {
+    drawShadowCloud();
+    drawMainCloud();
+  })();
+
+  function drawShadowCloud() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
     ctx.beginPath();
     ctx.bezierCurveTo(100 + slip, 10 + slip, 150 + slip, -10 + slip, 200 + slip, 20 + slip);
@@ -22,10 +27,9 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.closePath();
     ctx.stroke();
     return ctx.fill();
-  };
-  drawShadowCloud();
+  }
 
-  var drawMainCloud = function () {
+  function drawMainCloud() {
     ctx.fillStyle = 'white';
     ctx.beginPath();
     ctx.bezierCurveTo(100, 10, 150, -10, 200, 20);
@@ -40,26 +44,9 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.closePath();
     ctx.stroke();
     return ctx.fill();
-  };
-  drawMainCloud();
-
-  ctx.fillStyle = '#000';
-  ctx.font = '16px PT Mono';
-
-  ctx.fillText('Ура вы победили!', 120, 40);
-  ctx.fillText('Список результатов:', 120, 60);
+  }
 
   var maxTime = -1;
-  var searchMax = function () {
-    for (var i = 0; i < times.length; i++) {
-      var time = times[i];
-      if (time > maxTime) {
-        maxTime = time;
-      }
-    }
-    return maxTime;
-  };
-
   var histogramHeight = 150;
   var step = histogramHeight / (searchMax() - 0);
   var distanceX = 120;
@@ -69,27 +56,44 @@ window.renderStatistics = function (ctx, names, times) {
   var nameY = 270;
   var barWidth = 40;
 
-  for (var j = 0; j < times.length; j++) {
-    var printScoreBar = function () {
-      ctx.fillStyle = '#000';
-      return ctx.fillText(Math.round(times[j]), distanceX + spaceBar * j, resultY + histogramHeight - times[j] * step);
-    };
-    printScoreBar();
-
-    var printUserBar = function () {
-      if (names[j] === 'Вы') {
-        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-      } else {
-        ctx.fillStyle = 'rgba(0, 0, 255,' + getRandomNumber() + ')';
+  function searchMax() {
+    for (var i = 0; i < times.length; i++) {
+      var time = times[i];
+      if (time > maxTime) {
+        maxTime = time;
       }
-      return ctx.fillRect(distanceX + spaceBar * j, barY + histogramHeight - times[j] * step, barWidth, times[j] * step);
-    };
-    printUserBar();
-
-    var printNameBar = function () {
-      ctx.fillStyle = '#000';
-      return ctx.fillText(names[j], distanceX + spaceBar * j, nameY);
-    };
-    printNameBar();
+    }
+    return maxTime;
   }
+
+  ctx.fillStyle = '#000';
+  ctx.font = '16px PT Mono';
+
+  (function printTitle() {
+    ctx.fillText('Ура вы победили!', 120, 40);
+    ctx.fillText('Список результатов:', 120, 60);
+  })();
+
+  (function printHistogram() {
+    for (var j = 0; j < times.length; j++) {
+      (function printScoreBar() {
+        ctx.fillStyle = '#000';
+        return ctx.fillText(Math.round(times[j]), distanceX + spaceBar * j, resultY + histogramHeight - times[j] * step);
+      })();
+
+      (function printUserBar() {
+        if (names[j] === 'Вы') {
+          ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+        } else {
+          ctx.fillStyle = 'rgba(0, 0, 255,' + getRandomNumber() + ')';
+        }
+        return ctx.fillRect(distanceX + spaceBar * j, barY + histogramHeight - times[j] * step, barWidth, times[j] * step);
+      })();
+
+      (function printNameBar() {
+        ctx.fillStyle = '#000';
+        return ctx.fillText(names[j], distanceX + spaceBar * j, nameY);
+      })();
+    }
+  })();
 };
