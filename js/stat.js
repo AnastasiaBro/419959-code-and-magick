@@ -1,7 +1,7 @@
 'use strict';
 
 var getRandomNumber = function () {
-  return Math.random();
+  return Math.ceil(Math.random() * 10) / 10;
 };
 
 window.renderStatistics = function (ctx, names, times) {
@@ -82,11 +82,7 @@ window.renderStatistics = function (ctx, names, times) {
       })();
 
       (function printUserBar() {
-        if (names[j] === 'Вы') {
-          ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-        } else {
-          ctx.fillStyle = 'rgba(0, 0, 255,' + getRandomNumber() + ')';
-        }
+        ctx.fillStyle = (names[j] === 'Вы') ? ctx.fillStyle = 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 255,' + getRandomNumber() + ')';
         return ctx.fillRect(distanceX + spaceBar * j, barY + histogramHeight - times[j] * step, barWidth, times[j] * step);
       })();
 
