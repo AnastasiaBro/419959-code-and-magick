@@ -103,7 +103,7 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-// первый вариант для ESC ниже
+// вот тут пошли непонятки - первый вариант для ESC ниже
 
 function stopEvent() {
   onPopupEscPress.stopPropagation();
