@@ -103,7 +103,7 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-// первый вариант ниже
+// первый вариант для ESC ниже
 
 function stopEvent() {
   onPopupEscPress.stopPropagation();
@@ -122,42 +122,6 @@ userNameInput.addEventListener('keydown', function (evt) {
   }
 });
 */
-
-// ----------------------------------------------------
-
-/* if (userNameInput.focus()) {
-  onPopupEscPress.stopPropagation();
-}*/
-
-
-/* if (userNameInput.focus()) {
-  stopEvent();
-}*/
-
-// userNameInput.addEventListener('click', stopEvent, false);
-
-// if (input.focus()) {
-// onPopupEscPress.preventDefault();
-// input.addEventListener('focused', function () {
-// onPopupEscPress.preventDefault();
-// }, false);
-// }
-
-// if (input.focus()) {
-// onPopupEscPress.preventDefault();
-// input.addEventListener('focused', function () {
-// onPopupEscPress.preventDefault();
-// }, false);
-// }
-// }
-/*
-input.onfocus = function () {
-  if (input.focus()) {
-    onPopupEscPress.preventDefault();
-  }
-};
-*/
-// ----------------------------------------------------
 
 // валидация
 
@@ -205,3 +169,39 @@ function getRandomNumber(min, max) {
     fireballWrap.setAttribute('style', 'background-color: ' + wraps[getRandomNumber(0, wraps.length - 1)]);
   });
 })();
+
+// ---неработающий код для esc----------------------
+
+/* if (userNameInput.focus()) {
+  onPopupEscPress.stopPropagation();
+}*/
+
+
+/* if (userNameInput.focus()) {
+  stopEvent();
+}*/
+
+// userNameInput.addEventListener('click', stopEvent, false);
+
+// if (input.focus()) {
+// onPopupEscPress.preventDefault();
+// input.addEventListener('focused', function () {
+// onPopupEscPress.preventDefault();
+// }, false);
+// }
+
+// if (input.focus()) {
+// onPopupEscPress.preventDefault();
+// input.addEventListener('focused', function () {
+// onPopupEscPress.preventDefault();
+// }, false);
+// }
+// }
+/*
+input.onfocus = function () {
+  if (input.focus()) {
+    onPopupEscPress.preventDefault();
+  }
+};
+*/
+// ----------------------------------------------------
