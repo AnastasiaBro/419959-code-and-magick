@@ -56,21 +56,21 @@ var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
 var userNameInput = setup.querySelector('.setup-user-name');
 
-var onPopupEscPress = function (evt) {
+function onPopupEscPress(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closePopup();
   }
-};
+}
 
-var openPopup = function () {
+function openPopup() {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
-};
+}
 
-var closePopup = function () {
+function closePopup() {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
-};
+}
 
 setupOpen.addEventListener('click', function () {
   openPopup();
