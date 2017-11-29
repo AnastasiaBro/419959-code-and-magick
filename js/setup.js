@@ -1,8 +1,8 @@
 'use strict';
 
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
-var similarListElement = userDialog.querySelector('.setup-similar-list');
+var setup = document.querySelector('.setup');
+// userDialog.classList.remove('hidden');
+var similarListElement = setup.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
 var NUMBER_OF_WIZARDS = 4;
@@ -45,5 +45,129 @@ function drawCloneWizards(wizard) {
     fragment.appendChild(drawCloneWizards(wizards[i]));
   }
   similarListElement.appendChild(fragment);
-  userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  setup.querySelector('.setup-similar').classList.remove('hidden');
 })();
+
+// задание 4 урока
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+var userNameInput = setup.querySelector('.setup-user-name');
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  // if (userNameInput.focus() === false) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+  // }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+// первый вариант ниже
+
+function stopEvent() {
+  onPopupEscPress.stopPropagation();
+}
+
+(function stopExit() {
+  userNameInput.addEventListener('keydown', stopEvent);
+})();
+
+// другой вариант ниже
+
+/*
+userNameInput.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup.stopPropagation();
+  }
+});
+*/
+
+// ----------------------------------------------------
+
+/* if (userNameInput.focus()) {
+  onPopupEscPress.stopPropagation();
+}*/
+
+
+/* if (userNameInput.focus()) {
+  stopEvent();
+}*/
+
+// userNameInput.addEventListener('click', stopEvent, false);
+
+// if (input.focus()) {
+// onPopupEscPress.preventDefault();
+// input.addEventListener('focused', function () {
+// onPopupEscPress.preventDefault();
+// }, false);
+// }
+
+// if (input.focus()) {
+// onPopupEscPress.preventDefault();
+// input.addEventListener('focused', function () {
+// onPopupEscPress.preventDefault();
+// }, false);
+// }
+// }
+/*
+input.onfocus = function () {
+  if (input.focus()) {
+    onPopupEscPress.preventDefault();
+  }
+};
+*/
+
+// валидация
+
+userNameInput.addEventListener('invalid', function () {
+  if (userNameInput.validity.tooShort) {
+    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else if (userNameInput.validity.tooLong) {
+    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+  } else if (userNameInput.validity.valueMissing) {
+    userNameInput.setCustomValidity('Обязательное поле');
+  } else {
+    userNameInput.setCustomValidity('');
+  }
+});
+
+userNameInput.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value.length < 2) {
+    target.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else {
+    target.setCustomValidity('');
+  }
+});
