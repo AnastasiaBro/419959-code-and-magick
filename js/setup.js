@@ -148,25 +148,25 @@ userNameInput.addEventListener('input', function (evt) {
 
 // изменение цвета мантии и т.д.
 
-function getRandomNumber(min, max) {
+function getRandom(min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 }
 
 (function changeCoatColor() {
   wizardCoat.addEventListener('click', function () {
-    wizardCoat.setAttribute('style', 'fill: ' + coats[getRandomNumber(0, coats.length - 1)]);
+    wizardCoat.setAttribute('style', 'fill: ' + coats[getRandom(0, coats.length - 1)]);
   });
 })();
 
 (function changeEyesColor() {
   wizardEyes.addEventListener('click', function () {
-    wizardEyes.setAttribute('style', 'fill: ' + eyes[getRandomNumber(0, eyes.length - 1)]);
+    wizardEyes.setAttribute('style', 'fill: ' + eyes[getRandom(0, eyes.length - 1)]);
   });
 })();
 
 (function changeEyesColor() {
   fireballWrap.addEventListener('click', function () {
-    fireballWrap.setAttribute('style', 'background-color: ' + wraps[getRandomNumber(0, wraps.length - 1)]);
+    fireballWrap.setAttribute('style', 'background-color: ' + wraps[getRandom(0, wraps.length - 1)]);
   });
 })();
 
