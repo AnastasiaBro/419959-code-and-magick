@@ -1,12 +1,27 @@
 'use strict';
 
 var setup = document.querySelector('.setup');
-// userDialog.classList.remove('hidden');
 var similarListElement = setup.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
 var NUMBER_OF_WIZARDS = 4;
 var wizards = [];
+
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+var userNameInput = setup.querySelector('.setup-user-name');
+
+var coats = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var eyes = ['black', 'red', 'blue', 'yellow', 'green'];
+var wraps = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+
+var wizardCoat = setup.querySelector('.setup-wizard .wizard-coat');
+var wizardEyes = setup.querySelector('.setup-wizard .wizard-eyes');
+var fireballWrap = setup.querySelector('.setup-fireball-wrap');
 
 function getRandomIndex(min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
@@ -48,27 +63,12 @@ function drawCloneWizards(wizard) {
   setup.querySelector('.setup-similar').classList.remove('hidden');
 })();
 
-// задание 4 урока
-
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
-
-var setupOpen = document.querySelector('.setup-open');
-var setupClose = setup.querySelector('.setup-close');
-var userNameInput = setup.querySelector('.setup-user-name');
-
-var coats = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var eyes = ['black', 'red', 'blue', 'yellow', 'green'];
-var wraps = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-
-var wizardCoat = setup.querySelector('.setup-wizard .wizard-coat');
-var wizardEyes = setup.querySelector('.setup-wizard .wizard-eyes');
-var fireballWrap = setup.querySelector('.setup-fireball-wrap');
 
 function onPopupEscPress(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
-    closePopup();
+    var checkInput = (evt.target.tagName === 'INPUT') ? evt.preventDefault() : closePopup();
   }
+  return checkInput;
 }
 
 function openPopup() {
@@ -86,11 +86,9 @@ setupOpen.addEventListener('click', function () {
 });
 
 setupOpen.addEventListener('keydown', function (evt) {
-  // if (userNameInput.focus() === false) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
-  // }
 });
 
 setupClose.addEventListener('click', function () {
@@ -102,28 +100,6 @@ setupClose.addEventListener('keydown', function (evt) {
     closePopup();
   }
 });
-
-// вот тут пошли непонятки - первый вариант для ESC ниже
-
-function stopEvent() {
-  onPopupEscPress.stopPropagation();
-}
-
-(function stopExit() {
-  userNameInput.addEventListener('keydown', stopEvent);
-})();
-
-// другой вариант ниже
-
-/*
-userNameInput.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
-    closePopup.stopPropagation();
-  }
-});
-*/
-
-// валидация
 
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
@@ -146,62 +122,20 @@ userNameInput.addEventListener('input', function (evt) {
   }
 });
 
-// изменение цвета мантии и т.д.
-
-function getRandom(min, max) {
-  return Math.floor(min + Math.random() * (max + 1 - min));
-}
-
 (function changeCoatColor() {
   wizardCoat.addEventListener('click', function () {
-    wizardCoat.setAttribute('style', 'fill: ' + coats[getRandom(0, coats.length - 1)]);
+    wizardCoat.setAttribute('style', 'fill: ' + coats[getRandomIndex(0, coats.length - 1)]);
   });
 })();
 
 (function changeEyesColor() {
   wizardEyes.addEventListener('click', function () {
-    wizardEyes.setAttribute('style', 'fill: ' + eyes[getRandom(0, eyes.length - 1)]);
+    wizardEyes.setAttribute('style', 'fill: ' + eyes[getRandomIndex(0, eyes.length - 1)]);
   });
 })();
 
-(function changeEyesColor() {
+(function changeWrapColor() {
   fireballWrap.addEventListener('click', function () {
-    fireballWrap.setAttribute('style', 'background-color: ' + wraps[getRandom(0, wraps.length - 1)]);
+    fireballWrap.setAttribute('style', 'background-color: ' + wraps[getRandomIndex(0, wraps.length - 1)]);
   });
 })();
-
-// ---неработающий код для esc----------------------
-
-/* if (userNameInput.focus()) {
-  onPopupEscPress.stopPropagation();
-}*/
-
-
-/* if (userNameInput.focus()) {
-  stopEvent();
-}*/
-
-// userNameInput.addEventListener('click', stopEvent, false);
-
-// if (input.focus()) {
-// onPopupEscPress.preventDefault();
-// input.addEventListener('focused', function () {
-// onPopupEscPress.preventDefault();
-// }, false);
-// }
-
-// if (input.focus()) {
-// onPopupEscPress.preventDefault();
-// input.addEventListener('focused', function () {
-// onPopupEscPress.preventDefault();
-// }, false);
-// }
-// }
-/*
-input.onfocus = function () {
-  if (input.focus()) {
-    onPopupEscPress.preventDefault();
-  }
-};
-*/
-// ----------------------------------------------------
