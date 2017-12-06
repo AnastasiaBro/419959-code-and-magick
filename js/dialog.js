@@ -2,22 +2,21 @@
 'use strict';
 
 (function () {
-  var setup = document.querySelector('.setup');
   var setupOpen = document.querySelector('.setup-open');
-  var setupClose = setup.querySelector('.setup-close');
-  var userNameInput = setup.querySelector('.setup-user-name');
+  var setupClose = window.setup.querySelector('.setup-close');
+  var userNameInput = window.setup.querySelector('.setup-user-name');
 
   function onPopupEscPress(evt) {
     window.util.isEscEvent(evt, (evt.target.tagName === 'INPUT') ? evt.preventDefault() : closePopup());
   }
 
   function openPopup() {
-    setup.classList.remove('hidden');
+    window.setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
   }
 
   function closePopup() {
-    setup.classList.add('hidden');
+    window.setup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
   }
 
